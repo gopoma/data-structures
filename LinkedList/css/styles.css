@@ -1,0 +1,83 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+.header__title {
+  text-align: center;
+  padding: 1.2rem;
+}
+.linkedList-container {
+  padding: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.linkedList {
+  min-height: 2.8rem;
+  display: flex;
+}
+.linkedList__node {
+  padding: 0.75rem;
+  border-radius: 50%;
+  color: white;
+}
+.linkedList__node:nth-child(4n-3) {
+  background-color: goldenrod;
+}
+.linkedList__node:nth-child(4n-1) {
+  background-color: steelblue;
+}
+.linkedList__connector {
+  min-width: 50px;
+  background-image: url('../img/arrow-left.svg');
+  background-repeat: no-repeat;
+  background-position: center center; 
+  background-size: 100% 100%;
+  transform: rotate(180deg);
+}
+.main-form-container {
+  padding: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.linkedList-data-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.linkedList-data {
+  padding: 1.2rem;
+  border: 2px solid #333;
+  background-color: #F3F3F3;
+}
+.messages {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  gap: 0.25rem;
+  flex-direction: column;
+}
+.message {
+  padding: 0.75rem;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+  align-items: center;
+}
+.message__closer {
+  cursor: pointer;
+}
+.message--ok {
+  border: 2px solid #C3E6CB;
+  color: #155724;
+  background-color: #D4EDDA;
+}
+.message--error {
+  border: 2px solid #F5C6CB;
+  color: #721C24;
+  background-color: #F8D7DA;
+}

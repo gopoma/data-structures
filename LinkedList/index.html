@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedList</title>
+  <link rel="stylesheet" href="./css/styles.css">
+  <script defer type="module" src="./js/index.js"></script>
+</head>
+<body>
+  <header class="header">
+    <h1 class="header__title">LinkedList</h1>
+  </header>
+  <main>
+    <section class="linkedList-container">
+      <div class="linkedList" id="targetList"></div>
+    </section>
+    <section class="main-form-container">
+      <div class="main-form">
+        <input type="text" id="nodeDataInput" placeholder="Node Data">
+        <button class="btn" id="btnUnshift">unshift</button>
+        <button class="btn" id="btnPush">push</button>
+        <button class="btn" id="btnClear">clear</button>
+        <button id="btnShift">shift</button>
+        <button id="btnPop">pop</button>
+      </div>
+    </section>
+    <section class="linkedList-data-container">
+      <div class="linkedList-data">
+        <h3>LinkedList Data</h3>
+        <p><b>isEmpty?:</b> <span id="isEmpty"></span></p>
+        <p><b>amountNodes:</b> <span id="amountNodes"></span></p>
+      </div>
+    </section>
+  </main>
+  <div class="messages" id="messages"></div>
+</body>
+</html>
