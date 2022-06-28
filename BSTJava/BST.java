@@ -45,7 +45,29 @@ public class BST<E extends Comparable<E>> implements IBST<E> {
     return result;
   }
 
+  // Operaciones de Eliminación
+  // Precondition: !isEmpty()
+  public E minRemove() {
+    if(this.isEmpty()) {return null;}
+    E min = this.minRecover(); // devuelve el menor del árbol
+    this.root = minRemove(this.root);
+    return min;
+  }
+  protected Node<E> minRemove(Node<E> current) {
+    if(current.getLeft() != null) // busca el mínimo
+      current.setLeft(minRemove(current.getLeft()));
+    else
+      current = current.getRight(); // Elimina el mínimo
+    return current;
+  }
+  
   // Consultores
+  public E minRecover() {
+    Node<E> tmp = this.root;
+    while(tmp.getLeft() != null)
+      tmp = tmp.getLeft();
+    return tmp.getData();
+  }
   public boolean isEmpty() {
     return this.root == null;
   }

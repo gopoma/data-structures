@@ -7,6 +7,9 @@ interface IBST<E> {
   // Operaciones de inserción
   void insert(E x) throws Exception;
 
+  // Operaciones de Eliminación
+  E minRemove();
+
   // Consultores
   boolean isEmpty();
 
