@@ -46,10 +46,31 @@ public class BST<E extends Comparable<E>> implements IBST<E> {
   }
 
   // Operaciones de Eliminación
+  public void remove(E x) {
+    this.root = removeNode(x, this.root);
+  }
+  protected Node<E> removeNode(E x, Node<E> current) {
+    Node<E> result = current;
+    if(current == null) {return null;}
+    int comparisonResult = current.getData().compareTo(x);
+    // Desviaciones
+    if(comparisonResult < 0) {
+      result.setRight(removeNode(x, current.getRight()));
+    } else if(comparisonResult > 0) {
+      result.setLeft(removeNode(x, current.getLeft()));
+    // /Desviaciones
+    } else if(current.getLeft() != null && current.getRight() != null) { // two childs
+      result.setData(this.minRecover(current.getRight()).getData());
+      result.setRight(this.minRemove(current.getRight()));
+    } else { // one child or nothing
+      result = (current.getLeft() != null) ? current.getLeft() : current.getRight();
+    }
+    return result;
+  }
   // Precondition: !isEmpty()
   public E minRemove() {
     if(this.isEmpty()) {return null;}
-    E min = this.minRecover(); // devuelve el menor del árbol
+    E min = this.minRecover(this.root).getData(); // devuelve el menor del árbol
     this.root = minRemove(this.root);
     return min;
   }
@@ -63,10 +84,13 @@ public class BST<E extends Comparable<E>> implements IBST<E> {
   
   // Consultores
   public E minRecover() {
-    Node<E> tmp = this.root;
+    return this.minRecover(this.root).getData();
+  }
+  public Node<E> minRecover(Node<E> n) {
+    Node<E> tmp = n;
     while(tmp.getLeft() != null)
       tmp = tmp.getLeft();
-    return tmp.getData();
+    return tmp;
   }
   public boolean isEmpty() {
     return this.root == null;

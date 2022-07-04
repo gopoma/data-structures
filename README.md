@@ -1,7 +1,8 @@
 # Data Structures
 
 **Realized on:**
-* LinkedList
+* `LinkedList`
+* `Binary Search Tree (BST)`
 
 **Working on:** 
-* Binary Search Tree (BST)
+* `Heaps`

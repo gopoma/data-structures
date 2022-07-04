@@ -28,6 +28,19 @@ public class BSTAplication {
       // Deleting the next minimum value in the BST
       System.out.println(tree.minRemove());
       System.out.println(tree.postOrder());
+      // Deleting some values
+      BST<Integer> tmp = new BST<>();
+      tmp.insert(10);
+      tmp.insert(4);
+      tmp.insert(8);
+      tmp.insert(3);
+      tmp.insert(20);
+      tmp.insert(25);
+      tmp.insert(28);
+      tmp.insert(12);
+      System.out.println(tmp.postOrder());
+      tmp.remove(25);
+      System.out.println(tmp.postOrder());
     } catch(Exception e) {
       System.err.println(e.getMessage());
     }
