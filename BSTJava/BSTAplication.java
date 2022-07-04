@@ -35,11 +35,17 @@ public class BSTAplication {
       tmp.insert(8);
       tmp.insert(3);
       tmp.insert(20);
-      tmp.insert(25);
-      tmp.insert(28);
+      tmp.insert(50);
+      tmp.insert(100);
       tmp.insert(12);
+      tmp.insert(22);
+      tmp.insert(24);
+      tmp.insert(28);
+      tmp.insert(27);
+      tmp.insert(29);
+      tmp.insert(30);
       System.out.println(tmp.postOrder());
-      tmp.remove(25);
+      tmp.remove(20);
       System.out.println(tmp.postOrder());
     } catch(Exception e) {
       System.err.println(e.getMessage());
