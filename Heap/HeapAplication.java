@@ -1,9 +1,6 @@
 package Heap;
 
 import java.lang.reflect.Array;
-import java.util.Arrays;
-
-import javax.annotation.processing.SupportedOptions;
 
 public class HeapAplication {
   public static void main(final String[] args) {
