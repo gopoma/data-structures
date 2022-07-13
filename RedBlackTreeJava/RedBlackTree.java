@@ -1,13 +1,14 @@
 package RedBlackTreeJava;
+import BSTJava.BST;
 
-public class RedBlackTree<E extends Comparable<E>> {
+public class RedBlackTree<E extends Comparable<E>> extends BST<E> {
   Node<E> root;
 
   public RedBlackTree() {
     this.root = null;
   }
 
-  private Node<E> rorateLeft(Node<E> node) {
+  private Node<E> rotateLeft(Node<E> node) {
     Node<E> rightChild = node.right;
     node.right = rightChild.left;
     rightChild.left = node;
@@ -69,6 +70,36 @@ public class RedBlackTree<E extends Comparable<E>> {
     }
 
     // Rotations can't take place in last inserted Node, so in its parent
+    // Let's Rotate
+    if(this.ll) { // For Left Rotation
+      root = rotateLeft(root);
+      root.color = Node.BLACK;
+      root.left.color = Node.RED;
+
+      this.ll = false;
+    } else if(this.rr) { // For Right Rotation
+      root = rotateRight(root);
+      root.color = Node.BLACK;
+      root.right.color = Node.RED;
+
+      this.rr = false;
+    } else if(this.rl) { // For Right and then Left Rotations
+      root.right = rotateRight(root.right);
+      root.right.parent = root;
+      root = rotateLeft(root);
+      root.color = Node.BLACK;
+      root.left.color = Node.RED;
+
+      this.rl = false;
+    } else if(this.lr) { // For Left and then Right Rotations
+      root.left = rotateLeft(root.left);
+      root.left.parent = root;
+      root = rotateRight(root);
+      root.color = Node.BLACK;
+      root.right.color = Node.RED;
+
+      this.lr = false;
+    }
 
     // Let's take care of RED RED conclict
     if(conflict) { // This only can occur from the first Node above the Last inserted
