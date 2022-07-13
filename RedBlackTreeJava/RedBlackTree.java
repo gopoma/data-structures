@@ -141,4 +141,200 @@ public class RedBlackTree<E extends Comparable<E>> extends BST<E> {
     }
     return root;
   }
+
+  public void deleteNode(E key) {
+    Node<E> node = root;
+  
+    // Find the node to be deleted
+    while (node != null && node.data.compareTo(key) != 0) {
+      // Traverse the tree to the left or right depending on the key
+      if (key.compareTo(node.data) < 0) {
+        node = node.left;
+      } else {
+        node = node.right;
+      }
+    }
+  
+    // Node not found?
+    if (node == null) {
+      return;
+    }
+  
+    // At this point, "node" is the node to be deleted
+  
+    // In this variable, we'll store the node at which we're going to start to fix the R-B
+    // properties after deleting a node.
+    Node<E> movedUpNode;
+    boolean deletedNodeColor;
+  
+    // Node has zero or one child
+    if (node.left == null || node.right == null) {
+      movedUpNode = deleteNodeWithZeroOrOneChild(node);
+      deletedNodeColor = node.color;
+    }
+  
+    // Node has two children
+    else {
+      // Find minimum node of right subtree ("inorder successor" of current node)
+      Node<E> inOrderSuccessor = findMinimum(node.right);
+  
+      // Copy inorder successor's data to current node (keep its color!)
+      node.data = inOrderSuccessor.data;
+  
+      // Delete inorder successor just as we would delete a node with 0 or 1 child
+      movedUpNode = deleteNodeWithZeroOrOneChild(inOrderSuccessor);
+      deletedNodeColor = inOrderSuccessor.color;
+    }
+  
+    if (deletedNodeColor == Node.BLACK) {
+      fixRedBlackPropertiesAfterDelete(movedUpNode);
+  
+      // Remove the temporary NIL node
+      if (movedUpNode.getClass() == NilNode.class) {
+        replaceParentsChild(movedUpNode.parent, movedUpNode, null);
+      }
+    }
+  }
+
+  private Node<E> deleteNodeWithZeroOrOneChild(Node<E> node) {
+    // Node has ONLY a left child --> replace by its left child
+    if (node.left != null) {
+      replaceParentsChild(node.parent, node, node.left);
+      return node.left; // moved-up node
+    }
+  
+    // Node has ONLY a right child --> replace by its right child
+    else if (node.right != null) {
+      replaceParentsChild(node.parent, node, node.right);
+      return node.right; // moved-up node
+    }
+  
+    // Node has no children -->
+    // * node is red --> just remove it
+    // * node is black --> replace it by a temporary NIL node (needed to fix the R-B rules)
+    else {
+      Node<E> newChild = node.color == Node.BLACK ? new NilNode<>() : null;
+      replaceParentsChild(node.parent, node, newChild);
+      return newChild;
+    }
+  }
+
+  private Node<E> findMinimum(Node<E> node) {
+    while (node.left != null) {
+      node = node.left;
+    }
+    return node;
+  }
+
+  private void replaceParentsChild(Node<E> parent, Node<E> oldChild, Node<E> newChild) {
+    if (parent == null) {
+      root = newChild;
+    } else if (parent.left == oldChild) {
+      parent.left = newChild;
+    } else if (parent.right == oldChild) {
+      parent.right = newChild;
+    } else {
+      throw new IllegalStateException("Node is not a child of its parent");
+    }
+  
+    if (newChild != null) {
+      newChild.parent = parent;
+    }
+  }
+
+  private void fixRedBlackPropertiesAfterDelete(Node<E> node) {
+    // Case 1: Examined node is root, end of recursion
+    if (node == root) {
+      // Uncomment the following line if you want to enforce black roots (rule 2):
+      // node.color = BLACK;
+      return;
+    }
+  
+    Node<E> sibling = getSibling(node);
+  
+    // Case 2: Red sibling
+    if (sibling.color == Node.RED) {
+      handleRedSibling(node, sibling);
+      sibling = getSibling(node); // Get new sibling for fall-through to cases 3-6
+    }
+  
+    // Cases 3+4: Black sibling with two black children
+    if (isBlack(sibling.left) && isBlack(sibling.right)) {
+      sibling.color = Node.RED;
+  
+      // Case 3: Black sibling with two black children + red parent
+      if (node.parent.color == Node.RED) {
+        node.parent.color = Node.BLACK;
+      }
+  
+      // Case 4: Black sibling with two black children + black parent
+      else {
+        fixRedBlackPropertiesAfterDelete(node.parent);
+      }
+    }
+  
+    // Case 5+6: Black sibling with at least one red child
+    else {
+      handleBlackSiblingWithAtLeastOneRedChild(node, sibling);
+    }
+  }
+  private Node<E> getSibling(Node<E> node) {
+    Node<E> parent = node.parent;
+    if (node == parent.left) {
+      return parent.right;
+    } else if (node == parent.right) {
+      return parent.left;
+    } else {
+      throw new IllegalStateException("Parent is not a child of its grandparent");
+    }
+  }
+  
+  private boolean isBlack(Node<E> node) {
+    return node == null || node.color == Node.BLACK;
+  }
+
+  private void handleRedSibling(Node<E> node, Node<E> sibling) {
+    // Recolor...
+    sibling.color = Node.BLACK;
+    node.parent.color = Node.RED;
+  
+    // ... and rotate
+    if (node == node.parent.left) {
+      rotateLeft(node.parent);
+    } else {
+      rotateRight(node.parent);
+    }
+  }
+
+  private void handleBlackSiblingWithAtLeastOneRedChild(Node<E> node, Node<E> sibling) {
+    boolean nodeIsLeftChild = node == node.parent.left;
+  
+    // Case 5: Black sibling with at least one red child + "outer nephew" is black
+    // --> Recolor sibling and its child, and rotate around sibling
+    if (nodeIsLeftChild && isBlack(sibling.right)) {
+      sibling.left.color = Node.BLACK;
+      sibling.color = Node.RED;
+      rotateRight(sibling);
+      sibling = node.parent.right;
+    } else if (!nodeIsLeftChild && isBlack(sibling.left)) {
+      sibling.right.color = Node.BLACK;
+      sibling.color = Node.RED;
+      rotateLeft(sibling);
+      sibling = node.parent.left;
+    }
+  
+    // Fall-through to case 6...
+  
+    // Case 6: Black sibling with at least one red child + "outer nephew" is red
+    // --> Recolor sibling + parent + sibling's child, and rotate around parent
+    sibling.color = node.parent.color;
+    node.parent.color = Node.BLACK;
+    if (nodeIsLeftChild) {
+      sibling.right.color = Node.BLACK;
+      rotateLeft(node.parent);
+    } else {
+      sibling.left.color = Node.BLACK;
+      rotateRight(node.parent);
+    }
+  }
 }

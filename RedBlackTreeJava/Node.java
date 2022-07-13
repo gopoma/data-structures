@@ -18,3 +18,10 @@ public class Node<E> {
     this.parent = null;
   }
 }
+
+class NilNode<E> extends Node<E> {
+  public NilNode() {
+    super(null);
+    this.color = Node.BLACK;
+  }
+}
