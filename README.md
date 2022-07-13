@@ -5,4 +5,4 @@
 * `Binary Search Tree (BST)`
 
 **Working on:** 
-* `Heaps`
+* `Red Black Tree (RBT)`
