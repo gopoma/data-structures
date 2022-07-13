@@ -38,6 +38,7 @@ public class RedBlackTree<E extends Comparable<E>> {
   boolean rr = false;
   boolean lr = false;
   boolean rl = false;
+  // Here we are to the JavaScript's Hoisting 
   protected Node<E> insertNode(Node<E> root, E data) throws Exception {
     boolean conflict = false;
 
@@ -66,5 +67,47 @@ public class RedBlackTree<E extends Comparable<E>> {
         }
       }
     }
+
+    // Rotations can't take place in last inserted Node, so in its parent
+
+    // Let's take care of RED RED conclict
+    if(conflict) { // This only can occur from the first Node above the Last inserted
+      // root.parent is the parent of the Last Node inserted
+      if(root.parent.right == root) { // Current Node is the right child of its parent
+        final Node<E> uncle = root.parent.left;
+        if(uncle == null || uncle.color == Node.BLACK) { // Checking the fifth Case's case
+          // The use of if else if is because some cases would be dismissed
+          if(root.left != null && root.left.color == Node.RED) { // Checking the Last Node inserted orientation, remember that is some of them is not null his sibling is null
+            this.rl = true;
+          } else if(root.right != null && root.right.color == Node.RED) {
+            this.rr = true;
+          }
+        } else { // Functionality for Case 3
+          uncle.color = Node.BLACK;
+          root.color = Node.BLACK;
+          // Remember that root.parent is the grandfather to take into consideration in the Hoisting
+          if(root.parent != this.root) {
+            root.parent.color = Node.RED;
+          }
+        }
+      } else { // Current Node is the left child of its parent
+        final Node<E> uncle = root.parent.right;
+        if(uncle == null || uncle.color == Node.BLACK) {
+          if(root.left != null && root.left.color == Node.RED) {
+            this.rr = true;
+          } else if(root.right != null && root.right.color == Node.RED) {
+            this.lr = true;
+          }
+        } else {
+          uncle.color = Node.BLACK;
+          root.color = Node.BLACK;
+          if(root.parent != this.root) {
+            root.parent.color = Node.RED;
+          }
+        }
+      }
+      conflict = false;
+    }
+    return root;
   }
 }
