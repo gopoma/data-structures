@@ -3,6 +3,7 @@
 **Realized on:**
 * `LinkedList`
 * `Binary Search Tree (BST)`
+* `Red Black Tree (RBT)`
 
 **Working on:** 
-* `Red Black Tree (RBT)`
+* `Brute Force Match (Pattern Matching)`
