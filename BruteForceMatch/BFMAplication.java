@@ -19,7 +19,7 @@ public class BFMAplication {
     // We also take care the case that pattern's length is greater than text's length
     for(int i = 0; i <= text.length() - pattern.length(); i++) {
       int j = 0;
-      while(j < pattern.length() && text.substring(i + j, i + j + 1).equals(pattern.substring(j, j + 1))) {
+      while(j < pattern.length() && text.charAt(i + j) == pattern.charAt(j)) {
         j++;
       }
       if(j == pattern.length()) {
