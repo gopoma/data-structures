@@ -1,11 +1,18 @@
 package BruteForceMatch;
 
-public class BFMAplication {
-  public static void main(final String[] args) {
-    final String text = "The busboy is a good npm package";
-    final String pattern = "package";
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
 
-    System.out.println(bruteForceMatch(text, pattern));
+public class BFMAplication {
+  public static void main(final String[] args) throws IOException {
+    final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    System.out.print("Text: ");
+    final String text = br.readLine();
+    System.out.print("Pattern: ");
+    final String pattern = br.readLine();
+
+    System.out.printf("Match At: %d", bruteForceMatch(text, pattern));
   }
 
   public static int bruteForceMatch(String text, String pattern) {
