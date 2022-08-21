@@ -1,4 +1,4 @@
-package BSTJava;
+package java.bst;
 
 public class BSTAplication {
   public static void main(final String[] args) {

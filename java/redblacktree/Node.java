@@ -1,4 +1,4 @@
-package RedBlackTreeJava;
+package java.redblacktree;
 
 public class Node<E> {
   static final boolean RED = true;

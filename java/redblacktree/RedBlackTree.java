@@ -1,5 +1,5 @@
-package RedBlackTreeJava;
-import BSTJava.BST;
+package java.redblacktree;
+import java.bst.BST;
 
 public class RedBlackTree<E extends Comparable<E>> extends BST<E> {
   Node<E> root;

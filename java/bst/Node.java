@@ -1,4 +1,4 @@
-package BSTJava;
+package java.bst;
 
 public class Node<E> {
   private E data;

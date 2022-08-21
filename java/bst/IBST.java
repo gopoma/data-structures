@@ -1,4 +1,4 @@
-package BSTJava;
+package java.bst;
 
 interface IBST<E> {
   // Operaciones de búsqueda
