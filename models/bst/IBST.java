@@ -1,4 +1,4 @@
-package java.bst;
+package models.bst;
 
 interface IBST<E> {
   // Operaciones de búsqueda

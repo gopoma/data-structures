@@ -1,4 +1,4 @@
-package java.redblacktree;
+package models.redblacktree;
 
 public class RedBlackTreeAplication {
   public static void main(final String[] args) throws Exception {

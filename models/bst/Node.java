@@ -1,4 +1,4 @@
-package java.bst;
+package models.bst;
 
 public class Node<E> {
   private E data;

@@ -1,4 +1,4 @@
-package java.bst;
+package models.bst;
 
 public class BST<E extends Comparable<E>> implements IBST<E> {
   private Node<E> root;

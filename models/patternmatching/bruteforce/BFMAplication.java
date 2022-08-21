@@ -1,4 +1,4 @@
-package java.patternmatching.bruteforce;
+package models.patternmatching.bruteforce;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

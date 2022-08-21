@@ -1,1 +1,0 @@
-package java.patternmatching.boyermoore;

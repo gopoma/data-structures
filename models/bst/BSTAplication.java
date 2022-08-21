@@ -1,4 +1,4 @@
-package java.bst;
+package models.bst;
 
 public class BSTAplication {
   public static void main(final String[] args) {
