@@ -7,8 +7,10 @@ import java.io.BufferedReader;
 import java.util.Arrays;
 
 public class BMMAplication {
+  public static final int EXTENDED_ASCII_LIMIT = 256;
+
   public static int[] getLastOccurenceFunction(String pattern) {
-    int[] L = new int[256];
+    int[] L = new int[EXTENDED_ASCII_LIMIT];
     for(int i = 0; i < L.length; i++) 
       L[i] = -1;
 
@@ -52,7 +54,11 @@ public class BMMAplication {
     System.out.print("pattern: ");
     String pattern = br.readLine();
 
+    long initial = System.nanoTime();
     int result = matchWithBoyerMoore(text, pattern);
+    long executionTime = System.nanoTime() - initial;
+    System.out.println("Execution Time: "+executionTime+"ns");
+
     System.out.println("Was Founded?: "+(result != -1 ? "YES":"NO"));
     if(result != -1) {
       System.out.println("Matchs at: "+result);

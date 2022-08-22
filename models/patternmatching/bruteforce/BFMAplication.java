@@ -12,7 +12,10 @@ public class BFMAplication {
     System.out.print("Pattern: ");
     final String pattern = br.readLine();
 
-    System.out.printf("Match At: %d", bruteForceMatch(text, pattern));
+    long initial = System.nanoTime();
+    System.out.printf("Match At: %d%n", bruteForceMatch(text, pattern));
+    long executionTime = System.nanoTime() - initial;
+    System.out.println("Execution Time: "+executionTime+"ns");
   }
 
   public static int bruteForceMatch(String text, String pattern) {
