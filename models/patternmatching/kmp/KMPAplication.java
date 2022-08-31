@@ -1,6 +1,6 @@
 package models.patternmatching.kmp;
 
-// import java.util.Arrays; // Just for Debugging the Failure Function generation
+import java.util.Arrays; // Just for Debugging the Failure Function generation
 
 public class KMPAplication {
   public static int[] getFailureFunction(String P) {
@@ -63,6 +63,10 @@ public class KMPAplication {
     int result = matchThroughKMP(text, pattern);
     long executionTime = System.nanoTime() - initial;
     System.out.println("Execution Time: "+executionTime+"ns");
+
+    System.out.println("XDDD");
+    System.out.println(Arrays.toString(getFailureFunction("aabaabcab")));
+    System.out.println("XDDD");
 
     final boolean found = result != -1;
     System.out.println("Was Found?: "+(found ? "YES" : "NO"));
